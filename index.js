@@ -29,21 +29,24 @@ const cars = {
     mpgId: carNextId++,
     miles_pg: 30,
     gallons: 13,
+    miles: 200,
     car: 'Honda Civic',
   },
   [carNextId]: {
     mpgId: carNextId++,
     miles_pg: 15,
     gallons: 18,
+    miles: 140,
     car: 'Ford Mustang',
   },
 };
 
 app.post('/cars', (req, resp) => {
-  const { mpgId, miles_pg, gallons, car } = req.body;
+  const { mpgId, miles_pg, gallons, miles, car } = req.body;
   humans[humanNextId] = {
     mpgId: mpgId,
     miles_pg: miles_pg,
+    miles: miles,
     gallons: gallons,
     car: car,
   };
