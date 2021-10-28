@@ -79,7 +79,7 @@ app.post('/mpg', (request, response) => {
 });
 
 //DELETE
-app.delete('/cars/:mpgId', (request, response) => {
+app.delete('/mpg/:mpgId', (request, response) => {
   const parameter = request.params.mpgId;
 
   const query = 'DELETE FROM mpg WHERE miles_pg = ?';
@@ -99,7 +99,7 @@ app.delete('/cars/:mpgId', (request, response) => {
   });
 });
 
-app.post('/cars', (request, response) => {
+app.post('/mpg', (request, response) => {
   const parameters = [
     request.body.mpgId,
     request.body.miles_pg,
@@ -126,7 +126,7 @@ app.post('/cars', (request, response) => {
 });
 
 //GET
-app.get('/cars/:mpgId', (request, response) => {
+app.get('/mpg/:mpgId', (request, response) => {
   const parameters = request.params.mpgId;
 
   const query = 'SELECT * FROM mpg WHERE mpgId = ?';
