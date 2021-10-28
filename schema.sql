@@ -12,9 +12,7 @@ DROP TABLE IF EXISTS mpg;
 
 CREATE TABLE mpg (
   mpgId SERIAL PRIMARY KEY,
-  mpg INT,
+  miles_pg INT,
   gallons INT,
   car TEXT
-  timeFiled DATETIME NOT NULL,
-
 );
