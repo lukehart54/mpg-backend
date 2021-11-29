@@ -1,0 +1,14 @@
+{
+  "tests": [
+    {
+      "name": "test",
+      "setup": "",
+      "run": "echo \"done\"",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 1,
+      "points": 10
+    }
+  ]
+}
