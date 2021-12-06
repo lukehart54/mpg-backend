@@ -33,24 +33,6 @@ app.listen(port, () => {
   console.log(`We're live on port ${port}!`);
 });
 
-// let carNextId = 1;
-// const mpg = {
-//   [carNextId]: {
-//     mpgId: carNextId++,
-//     miles_pg: 30,
-//     gallons: 13,
-//     miles: 200,
-//     car: 'Honda Civic',
-//   },
-//   [carNextId]: {
-//     mpgId: carNextId++,
-//     miles_pg: 15,
-//     gallons: 18,
-//     miles: 140,
-//     car: 'Ford Mustang',
-//   },
-// };
-
 //POST
 app.post('/mpg', (request, response) => {
   const parameters = [
@@ -82,8 +64,8 @@ app.post('/mpg', (request, response) => {
 app.delete('/mpg/:mpgId', (request, response) => {
   const parameter = request.params.mpgId;
 
-  const query = 'DELETE FROM mpg WHERE miles_pg = ?';
-  connection.query(query, parameter, (error, result) => {
+  const deleteQuery = 'DELETE FROM mpg WHERE miles_pg = ?';
+  connection.query(deleteQuery, parameter, (error, result) => {
     if (error) {
       console.log('Delete Error');
       response.status(404);
@@ -107,9 +89,9 @@ app.post('/mpg', (request, response) => {
     request.body.car,
   ];
 
-  const query =
+  const insertQuery =
     'INSERT INTO mpg(mpgId, miles_pg, gallons, miles, car) VALUES (?, ?, ?, ?, ?)';
-  connection.query(query, parameters, (error, result) => {
+  connection.query(insertQuery, parameters, (error, result) => {
     if (error) {
       response.status(500);
       response.json({
