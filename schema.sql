@@ -7,3 +7,6 @@ CREATE TABLE mpg (
   miles INT,
   car TEXT
 );
+
+INSERT INTO mpg(mpgId, miles_pg, gallons, miles, car)
+VALUES (1, 30, 10, 300, "Honda Civic");
