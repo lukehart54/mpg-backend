@@ -1,23 +1,28 @@
 const express = require('express');
 const app = express();
+const request = require('https');
 app.use(express.json());
-const port = 3000;
-
 const fs = require('fs');
 const mysql = require('mysql');
 
 const json = fs.readFileSync('credentials.json', 'utf8');
 const credentials = JSON.parse(json);
 
+app.use((req, res, next) => {
+    res.set('Access-Control-Allow-Origin', '*');
+    next();
+});
+
 const connection = mysql.createConnection(credentials);
 connection.connect((error) => {
   if (error) {
     console.error(error);
     process.exit(1);
+  } else {
+    console.log("Success!");
   }
 });
 
-connection.end();
 
 function rowToMemory(row) {
   return {
@@ -29,36 +34,6 @@ function rowToMemory(row) {
   };
 }
 
-app.listen(port, () => {
-  console.log(`We're live on port ${port}!`);
-});
-
-//POST
-app.post('/mpg', (request, response) => {
-  const parameters = [
-    request.body.mpgId,
-    request.body.miles_pg,
-    request.body.gallons,
-    request.body.miles,
-    request.body.car
-  ];
-
-  const query = 'INSERT INTO mpg(mpgID, miles_pg, gallons, miles, car) VALUES (?, ?, ?, ?, ?)';
-  connection.query(query, parameters, (error, result) => {
-    if (error) {
-      response.status(500);
-      response.json({
-        ok: false,
-        results: error.message,
-      });
-    } else {
-      response.json({
-        ok: true,
-        results: 'It worked!',
-      });
-    }
-  });
-});
 
 //DELETE
 app.delete('/mpg/:mpgId', (request, response) => {
@@ -81,6 +56,7 @@ app.delete('/mpg/:mpgId', (request, response) => {
   });
 });
 
+// POST
 app.post('/mpg', (request, response) => {
   const parameters = [
     request.body.mpgId,
@@ -128,3 +104,5 @@ app.get('/mpg/:mpgId', (request, response) => {
     }
   });
 });
+
+
