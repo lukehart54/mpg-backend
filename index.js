@@ -105,6 +105,10 @@ app.get('/mpg/:mpgId', (request, response) => {
   });
 });
 
+app.get('/report.html', (req, res) => {
+  res.sendFile(__dirname + '/report.html');
+});
+
 const port = 5001;
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
