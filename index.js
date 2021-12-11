@@ -85,7 +85,7 @@ app.post('/mpg', (request, response) => {
 
 //ALL info
 app.get('/all', (request, response) => {
-  const query = 'SELECT * FROM mpg WHERE id >= 0';
+  const query = 'SELECT * FROM mpg WHERE mpgId >= 0';
   connection.query(query, (error, rows) => {
     if (error) {
       response.status(500);
