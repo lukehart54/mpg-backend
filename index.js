@@ -1,22 +1,22 @@
 const express = require('express');
 const app = express();
 const request = require('https');
-app.use(express.json());
 const fs = require('fs');
 const mysql = require('mysql');
+app.use(express.json());
 
-const json = fs.readFileSync('credentials.json', 'utf8');
-const credentials = JSON.parse(json);
 
-app.use((req, res, next) => {
+const credentials = JSON.parse(fs.readFileSync('credentials.json', 'utf8'));
+const connection = mysql.createConnection(credentials);
+
+app.use((request, res, next) => {
     res.set('Access-Control-Allow-Origin', '*');
     next();
 });
 
-const connection = mysql.createConnection(credentials);
 connection.connect((error) => {
   if (error) {
-    console.error(error);
+    console.error("error");
     process.exit(1);
   } else {
     console.log("Success!");
@@ -78,6 +78,26 @@ app.post('/mpg', (request, response) => {
       response.json({
         ok: true,
         results: 'Complete',
+      });
+    }
+  });
+});
+
+//ALL info
+app.get('/all', (request, response) => {
+  const query = 'SELECT * FROM mpg WHERE id >= 0';
+  connection.query(query, (error, rows) => {
+    if (error) {
+      response.status(500);
+      response.json({
+        ok: false,
+        results: error.message,
+      });
+    } else {
+      const info = rows.map(rowToMemory);
+      response.json({
+        ok: true,
+        results: rows.map(rowToMemory),
       });
     }
   });
