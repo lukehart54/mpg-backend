@@ -57,31 +57,45 @@ app.delete('/mpg/:mpgId', (request, response) => {
 });
 
 // POST
-app.post('/mpg', (request, response) => {
-  const parameters = [
-    request.body.mpgId,
-    request.body.miles_pg,
-    request.body.gallons,
-    request.body.miles,
-    request.body.car,
-  ];
+app.post('/memories', (request, response) => {
+  if (
+    request.body.hasOwnProperty('mpgId') &&
+    request.body.hasOwnProperty('miles_pg') &&
+    request.body.hasOwnProperty('gallons') &&
+    request.body.hasOwnProperty('miles') &&
+    request.body.hasOwnProperty('car')
+  ) {
+    const parameters = [
+      request.body.mpgId,
+      request.body.miles_pg,
+      request.body.gallons,
+      request.body.miles,
+      request.body.car,
+    ];
 
-  const insertQuery =
-    'INSERT INTO mpg(mpgId, miles_pg, gallons, miles, car) VALUES (?, ?, ?, ?, ?)';
-  connection.query(insertQuery, parameters, (error, result) => {
-    if (error) {
-      response.status(500);
-      response.json({
-        ok: false,
-        results: error.message,
-      });
-    } else {
-      response.json({
-        ok: true,
-        results: 'Complete',
-      });
-    }
-  });
+    const query =
+      'INSERT INTO mpg(mpgId, miles_pg, gallons, miles, car) VALUES (?, ?, ?, ?, ?)';
+    connection.query(query, parameters, (error, result) => {
+      if (error) {
+        response.status(500);
+        response.json({
+          ok: false,
+          results: error.message,
+        });
+      } else {
+        response.json({
+          ok: true,
+          results: 'Great Success!',
+        });
+      }
+    });
+  } else {
+    response.status(400);
+    response.json({
+      ok: false,
+      results: 'Incomplete mpg info.',
+    });
+  }
 });
 
 //ALL info
