@@ -62,6 +62,7 @@ app.post('/mpg', (request, response) => {
     request.body.mpgId,
     request.body.miles_pg,
     request.body.gallons,
+    request.body.miles,
     request.body.car,
   ];
 
