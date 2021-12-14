@@ -34,6 +34,33 @@ function rowToMemory(row) {
   };
 }
 
+service.patch('/memories/:mpgId', (request, response) => {
+
+    const parameters = [
+      request.body.miles_pg,
+      request.body.gallons,
+      request.body.miles,
+      request.body.car,
+      parseInt(request.params.mpgId),
+    ];
+
+  const query =
+    'UPDATE mpg SET miles_pg = ?, gallons = ?, miles = ?, car = ? WHERE id = ?';
+  connection.query(query, parameters, (error, result) => {
+    if (error) {
+      response.status(404);
+      response.json({
+        ok: false,
+        results: error.message,
+      });
+    } else {
+      response.json({
+        ok: true,
+      });
+    }
+  });
+});
+
 
 //DELETE
 app.delete('/mpg/:mpgId', (request, response) => {
@@ -59,14 +86,12 @@ app.delete('/mpg/:mpgId', (request, response) => {
 // POST
 app.post('/memories', (request, response) => {
   if (
-    request.body.hasOwnProperty('mpgId') &&
     request.body.hasOwnProperty('miles_pg') &&
     request.body.hasOwnProperty('gallons') &&
     request.body.hasOwnProperty('miles') &&
     request.body.hasOwnProperty('car')
   ) {
     const parameters = [
-      request.body.mpgId,
       request.body.miles_pg,
       request.body.gallons,
       request.body.miles,
@@ -74,7 +99,7 @@ app.post('/memories', (request, response) => {
     ];
 
     const query =
-      'INSERT INTO mpg(mpgId, miles_pg, gallons, miles, car) VALUES (?, ?, ?, ?, ?)';
+      'INSERT INTO mpg(miles_pg, gallons, miles, car) VALUES (?, ?, ?, ?)';
     connection.query(query, parameters, (error, result) => {
       if (error) {
         response.status(500);
@@ -85,7 +110,7 @@ app.post('/memories', (request, response) => {
       } else {
         response.json({
           ok: true,
-          results: 'Great Success!',
+          results: result.insertId,
         });
       }
     });
