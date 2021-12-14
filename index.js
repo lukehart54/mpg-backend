@@ -68,7 +68,7 @@ app.patch('/mpg/:mpgId', (request, response) => {
 app.delete('/mpg/:mpgId', (request, response) => {
   const parameter = request.params.mpgId;
 
-  const deleteQuery = 'DELETE FROM mpg WHERE car = ?';
+  const deleteQuery = 'DELETE FROM mpg WHERE mpgId = ?';
   connection.query(deleteQuery, parameter, (error, result) => {
     if (error) {
       console.log('Delete Error');
