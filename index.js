@@ -14,8 +14,6 @@ app.use((request, res, next) => {
     next();
 });
 
-console.log("Test");
-
 connection.connect((error) => {
   if (error) {
     console.error("error");
@@ -171,7 +169,7 @@ app.get('/report.html', (req, res) => {
   res.sendFile(__dirname + '/report.html');
 });
 
-const port = 5001;
+const port = 8443;
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
