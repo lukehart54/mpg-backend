@@ -45,7 +45,7 @@ app.patch('/memories/:mpgId', (request, response) => {
     ];
 
   const query =
-    'UPDATE mpg SET miles_pg = ?, gallons = ?, miles = ?, car = ? WHERE id = ?';
+    'UPDATE mpg SET miles_pg = ?, gallons = ?, miles = ?, car = ? WHERE mpgId = ?';
   connection.query(query, parameters, (error, result) => {
     if (error) {
       response.status(404);
