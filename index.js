@@ -34,7 +34,7 @@ function rowToMemory(row) {
   };
 }
 
-service.patch('/memories/:mpgId', (request, response) => {
+app.patch('/memories/:mpgId', (request, response) => {
 
     const parameters = [
       request.body.miles_pg,
