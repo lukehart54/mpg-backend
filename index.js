@@ -84,7 +84,7 @@ app.delete('/mpg/:mpgId', (request, response) => {
 });
 
 // POST
-app.post('/memories', (request, response) => {
+app.post('/mpg', (request, response) => {
   if (
     request.body.hasOwnProperty('miles_pg') &&
     request.body.hasOwnProperty('gallons') &&
