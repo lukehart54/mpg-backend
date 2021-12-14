@@ -65,7 +65,7 @@ app.patch('/mpg/:mpgId', (request, response) => {
 
 
 //DELETE
-app.delete('/mpg/:car', (request, response) => {
+app.delete('/mpg/:mpgId', (request, response) => {
   const parameter = request.params.mpgId;
 
   const deleteQuery = 'DELETE FROM mpg WHERE car = ?';
