@@ -14,6 +14,8 @@ app.use((request, res, next) => {
     next();
 });
 
+console.log("Test");
+
 connection.connect((error) => {
   if (error) {
     console.error("error");
@@ -34,7 +36,7 @@ function rowToMemory(row) {
   };
 }
 
-app.patch('/memories/:mpgId', (request, response) => {
+app.patch('/mpg/:mpgId', (request, response) => {
 
     const parameters = [
       request.body.miles_pg,
@@ -63,10 +65,10 @@ app.patch('/memories/:mpgId', (request, response) => {
 
 
 //DELETE
-app.delete('/mpg/:mpgId', (request, response) => {
+app.delete('/mpg/:car', (request, response) => {
   const parameter = request.params.mpgId;
 
-  const deleteQuery = 'DELETE FROM mpg WHERE miles_pg = ?';
+  const deleteQuery = 'DELETE FROM mpg WHERE car = ?';
   connection.query(deleteQuery, parameter, (error, result) => {
     if (error) {
       console.log('Delete Error');
